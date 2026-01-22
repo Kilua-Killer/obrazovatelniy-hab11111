@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Образовательный Хаб - Проекты для старших классов</title>
+    <meta name="description" content="Профессиональная разработка образовательных проектов. Telegram боты, сайты для ЕГЭ, научные исследования.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Плавающие элементы -->
+    <div class="floating-element" style="left: 10%; animation-delay: 0s;">🎓</div>
+    <div class="floating-element" style="left: 30%; animation-delay: 2s;">📚</div>
+    <div class="floating-element" style="left: 50%; animation-delay: 4s;">🏆</div>
+    <div class="floating-element" style="left: 70%; animation-delay: 6s;">💡</div>
+    <div class="floating-element" style="left: 90%; animation-delay: 8s;">🎯</div>
+
+    <!-- Уведомления -->
+    <div id="notification" class="notification">
+      <div id="notification-content"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <nav class="container">
+        <a href="#" class="logo">
+          <span style="font-size: 2rem;">🎓</span>
+          Образовательный Хаб
+        </a>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home" onclick="closeMobileMenu()">Главная</a></li>
+          <li><a href="#projects" onclick="closeMobileMenu()">Проекты</a></li>
+          <li><a href="#calculator" onclick="closeMobileMenu()">Калькулятор</a></li>
+          <li><a href="#order" onclick="closeMobileMenu()">Заказать</a></li>
+          <li><a href="#contacts" onclick="closeMobileMenu()">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <h1 class="fade-in">Образовательные проекты нового поколения</h1>
+        <p class="fade-in">Создаем цифровые решения для образования: Telegram боты, сайты для ЕГЭ, научные проекты. Гарантируем результат и поддержку.</p>
+        <div class="fade-in">
+          <a href="#projects" class="btn">Смотреть проекты</a>
+          <a href="#calculator" class="btn btn-secondary">Рассчитать стоимость</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+      <div class="container">
+        <h2 class="fade-in">Почему выбирают нас</h2>
+        <div class="features-grid">
+          <div class="feature-card fade-in">
+            <div class="feature-icon">🏆</div>
+            <h3>Гарантия качества</h3>
+            <p>Каждый проект проходит проверку на соответствие требованиям и стандартам образования</p>
+          </div>
+          <div class="feature-card fade-in">
+            <div class="feature-icon">👨‍🏫</div>
+            <h3>Опытные специалисты</h3>
+            <p>Команда профессионалов с педагогическим опытом и техническими навыками</p>
+          </div>
+          <div class="feature-card fade-in">
+            <div class="feature-icon">⚡</div>
+            <h3>Соблюдение сроков</h3>
+            <p>Сдача проектов точно в оговоренное время без задержек и переносов</p>
+          </div>
+          <div class="feature-card fade-in">
+            <div class="feature-icon">🌟</div>
+            <h3>Высокие оценки</h3>
+            <p>Наши проекты регулярно получают высокие оценки и победы в конкурсах</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+      <div class="container">
+        <h2 class="fade-in">Наши флагманские проекты</h2>
+        <div class="projects-grid">
+          <div class="project-card fade-in">
+            <h3>🤖 Telegram бот для военных</h3>
+            <p>Многофункциональный помощник для военнослужащих: расписания, инструкции, связь с командованием. Удобное управление через Telegram.</p>
+            <div class="price">от 5 000 ₽</div>
+            <a href="#order" class="btn">Заказать</a>
+          </div>
+          <div class="project-card fade-in">
+            <h3>🧬 Сайт для подготовки к ЕГЭ по биологии</h3>
+            <p>Интерактивная платформа с тестами, видеоуроками, прогрессом учеников. Полная подготовка к экзамену с аналитикой.</p>
+            <div class="price">от 8 000 ₽</div>
+            <a href="#order" class="btn">Заказать</a>
+          </div>
+          <div class="project-card fade-in">
+            <h3>📱 Образовательное приложение</h3>
+            <p>Мобильное приложение для изучения языков с геймификацией, прогрессом и социальными функциями.</p>
+            <div class="price">от 10 000 ₽</div>
+            <a href="#order" class="btn">Заказать</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="calculator">
+      <div class="container">
+        <h2 class="fade-in">Калькулятор стоимости</h2>
+        <div class="calculator-form fade-in">
+          <div class="form-group">
+            <label for="projectType">📋 Тип проекта</label>
+            <select id="projectType">
+              <option value="bot">🤖 Telegram бот</option>
+              <option value="website">🌐 Сайт/Платформа</option>
+              <option value="mobile">📱 Мобильное приложение</option>
+              <option value="science">🔬 Научный проект</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="complexity">📊 Сложность</label>
+            <select id="complexity">
+              <option value="low">🟢 Базовый</option>
+              <option value="medium">🟡 Стандарт</option>
+              <option value="high">🔴 Продвинутый</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="urgency">⏰ Срочность</label>
+            <select id="urgency">
+              <option value="normal">🕐 Стандартно (2-3 недели)</option>
+              <option value="urgent">🔥 Срочно (1 неделя)</option>
+              <option value="superUrgent">⚡ Очень срочно (3-5 дней)</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="pages">📄 Объем работ: <span id="pagesValue">10</span></label>
+            <input type="range" id="pages" min="5" max="50" value="10">
+          </div>
+          
+          <div class="result">
+            <h3>💰 Стоимость: <span id="totalPrice">5 000</span> ₽</h3>
+            <p>📅 Срок выполнения: <span id="deadline">7</span> дней</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="order" class="calculator">
+      <div class="container">
+        <h2 class="fade-in">Заказать проект</h2>
+        <div class="calculator-form fade-in">
+          <div class="form-group">
+            <label for="name">👤 Ваше имя *</label>
+            <input type="text" id="name" placeholder="Введите ваше имя" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">📞 Телефон *</label>
+            <input type="tel" id="phone" placeholder="+7 (962) 126-51-77" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">📧 Email *</label>
+            <input type="email" id="email" placeholder="obrazovatelniyhab@yandex.ru" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="projectSubject">🎯 Тип проекта *</label>
+            <select id="projectSubject" required>
+              <option value="">Выберите тип проекта</option>
+              <option value="telegram-bot">🤖 Telegram бот для военных</option>
+              <option value="ege-biology">🧬 Сайт для ЕГЭ по биологии</option>
+              <option value="mobile-app">📱 Мобильное приложение</option>
+              <option value="custom">💡 Другой проект</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="description">📝 Описание *</label>
+            <textarea id="description" rows="4" placeholder="Опишите ваши требования, цели проекта..." required></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="width: 100%;" onclick="submitOrder(event)">
+            🚀 Отправить заявку
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacts Section -->
+    <section id="contacts" class="features">
+      <div class="container">
+        <h2 class="fade-in">Контакты</h2>
+        <div class="features-grid">
+          <div class="feature-card fade-in visible">
+            <div class="feature-icon">📞</div>
+            <h3>Телефон</h3>
+            <p>+7 (962) 126-51-77</p>
+            <p>Звоните с 9:00 до 20:00</p>
+          </div>
+          <div class="feature-card fade-in visible">
+            <div class="feature-icon">📧</div>
+            <h3>Email</h3>
+            <p>obrazovatelniyhab@yandex.ru</p>
+            <p>Отвечаем в течение 2 часов</p>
+          </div>
+          <div class="feature-card fade-in visible">
+            <div class="feature-icon">📍</div>
+            <h3>Работаем онлайн</h3>
+            <p>Удаленное сотрудничество</p>
+            <p>По всей России</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>🎓 Образовательный Хаб</h3>
+            <p>Создаем современные образовательные решения: от Telegram ботов до полноценных платформ для ЕГЭ.</p>
+          </div>
+          <div class="footer-section">
+            <h3>🧭 Навигация</h3>
+            <ul>
+              <li><a href="#home">🏠 Главная</a></li>
+              <li><a href="#projects">📂 Проекты</a></li>
+              <li><a href="#calculator">🧮 Калькулятор</a></li>
+              <li><a href="#order">📝 Заказать проект</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>🛠️ Услуги</h3>
+            <ul>
+              <li>🤖 Telegram боты</li>
+              <li>🌐 Образовательные сайты</li>
+              <li>📱 Мобильные приложения</li>
+              <li>🧬 Подготовка к ЕГЭ</li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>📞 Контакты</h3>
+            <ul>
+              <li>📞 +7 (962) 126-51-77</li>
+              <li>📧 obrazovatelniyhab@yandex.ru</li>
+              <li>💻 Работаем онлайн</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Образовательный Хаб. Все права защищены. Сделано с ❤️ для образования</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
