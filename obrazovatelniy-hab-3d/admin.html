@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ панель - Образовательный Хаб</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2d3748;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+        
+        .orders-table th,
+        .orders-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .orders-table th {
+            background: #f7fafc;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .orders-table tr:hover {
+            background: #f7fafc;
+        }
+        
+        .status-new {
+            background: #48bb78;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #718096;
+        }
+        
+        .refresh-btn {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .refresh-btn:hover {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <button class="refresh-btn" onclick="loadOrders()">🔄</button>
+    
+    <div class="container">
+        <h1>🎓 Админ панель - Образовательный Хаб</h1>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalOrders">0</div>
+                <div>Всего заявок</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="newOrders">0</div>
+                <div>Новых заявок</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todayOrders">0</div>
+                <div>Заявок сегодня</div>
+            </div>
+        </div>
+        
+        <table class="orders-table" id="ordersTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Телефон</th>
+                    <th>Email</th>
+                    <th>Проект</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody id="ordersBody">
+                <!-- Заявки будут загружены здесь -->
+            </tbody>
+        </table>
+        
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <h3>📭 Заявок пока нет</h3>
+            <p>Когда появятся заявки, они отобразятся здесь</p>
+        </div>
+    </div>
+
+    <script>
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const tbody = document.getElementById('ordersBody');
+            const emptyState = document.getElementById('emptyState');
+            const table = document.getElementById('ordersTable');
+            
+            // Обновляем статистику
+            document.getElementById('totalOrders').textContent = orders.length;
+            
+            const newOrders = orders.filter(order => order.status === 'new').length;
+            document.getElementById('newOrders').textContent = newOrders;
+            
+            const today = new Date().toDateString();
+            const todayOrders = orders.filter(order => 
+                new Date(order.timestamp).toDateString() === today
+            ).length;
+            document.getElementById('todayOrders').textContent = todayOrders;
+            
+            if (orders.length === 0) {
+                table.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            table.style.display = 'table';
+            emptyState.style.display = 'none';
+            
+            tbody.innerHTML = '';
+            
+            orders.reverse().forEach(order => {
+                const row = document.createElement('tr');
+                const date = new Date(order.timestamp);
+                const formattedDate = date.toLocaleDateString('ru-RU') + ' ' + 
+                                   date.toLocaleTimeString('ru-RU', {hour: '2-digit', minute: '2-digit'});
+                
+                row.innerHTML = `
+                    <td>#${order.id}</td>
+                    <td>${order.name}</td>
+                    <td>${order.phone}</td>
+                    <td>${order.email}</td>
+                    <td>${getProjectName(order.projectType)}</td>
+                    <td>${formattedDate}</td>
+                    <td><span class="status-new">Новая</span></td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        function getProjectName(type) {
+            const names = {
+                'telegram-bot': '🤖 Telegram бот для военных',
+                'ege-biology': '🧬 Сайт для ЕГЭ по биологии',
+                'mobile-app': '📱 Мобильное приложение',
+                'custom': '💡 Другой проект'
+            };
+            return names[type] || type;
+        }
+        
+        // Загружаем заявки при открытии страницы
+        loadOrders();
+        
+        // Обновляем каждые 30 секунд
+        setInterval(loadOrders, 30000);
+    </script>
+</body>
+</html>
